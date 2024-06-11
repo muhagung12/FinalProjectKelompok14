@@ -1,5 +1,5 @@
-CREATE DATABASE employeee;
+CREATE DATABASE employee;
 GO
 
-USE employeee;
+USE employee;
 GO
