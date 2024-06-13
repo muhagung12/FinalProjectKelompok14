@@ -65,5 +65,40 @@ CREATE TABLE countries(
 
 CREATE TABLE regions(
   id int PRIMARY KEY IDENTITY(1,1) NOT NULL,
-  name VARCHAR(25) NOT NULL,
+  name VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE accounts (
+    id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    username VARCHAR(25),
+	password VARCHAR(255) NOT NULL,
+	otp INT NOT NULL,
+	is_expired DATETIME NOT NULL,
+    is_used BIT DEFAULT 0,
+	FOREIGN KEY (id) REFERENCES employees(id)
+);
+
+CREATE TABLE account_roles (
+    id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	account INT NOT NULL,
+    FOREIGN KEY (account) REFERENCES accounts(id),
+    role INT NOT NULL,
+	FOREIGN KEY (role) REFERENCES roles(id)
+);
+
+CREATE TABLE roles(
+  id int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE role_permissions(
+  id int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  role INT NOT NULL,
+  permission int NOT NULL
+  FOREIGN KEY (permission) REFERENCES permission(id)
+);
+
+CREATE TABLE permissions(
+  id int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  name VARCHAR(100) NOT NULL
 );
