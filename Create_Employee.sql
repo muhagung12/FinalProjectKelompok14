@@ -20,3 +20,4 @@ CREATE TABLE employee (
   FOREIGN KEY (job) REFERENCES job(name),
   FOREIGN KEY (department) REFERENCES department(id)
 );
+
