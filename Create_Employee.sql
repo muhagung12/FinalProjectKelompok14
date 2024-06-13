@@ -4,7 +4,7 @@ GO
 USE employee;
 GO
 
-CREATE TABLE employee (
+CREATE TABLE employees (
   id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
   firstname VARCHAR(25) NOT NULL,
   lastname VARCHAR(25) ,
@@ -37,4 +37,33 @@ job VARCHAR(10) NOT NULL,
 department int NOT NULL,
 FOREIGN KEY (department) REFERENCES departments(id),
 FOREIGN KEY (job) REFERENCES jobs(id)
+);
+
+CREATE TABLE departments (
+  id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  name VARCHAR(30) NOT NULL,
+  location INT,
+  FOREIGN KEY (location) REFERENCES locations(id)
+);
+
+CREATE TABLE locations(
+  id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  street_address VARCHAR(40),
+  postal_code VARCHAR(12),
+  city VARCHAR(30) NOT NULL,
+  state_province VARCHAR(25),
+  country CHAR(3),
+  FOREIGN KEY (country) REFERENCES countries(id)
+);
+
+CREATE TABLE countries(
+  id CHAR(3) PRIMARY KEY NOT NULL,
+  name VARCHAR(25) NOT NULL,
+	region INT NOT NULL,
+    FOREIGN KEY (region) REFERENCES regions(id)
+);
+
+CREATE TABLE regions(
+  id int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  name VARCHAR(25) NOT NULL,
 );
