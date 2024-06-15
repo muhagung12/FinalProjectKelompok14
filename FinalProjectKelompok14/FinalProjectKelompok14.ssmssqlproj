@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="FinalProjectKelompok14">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="DESKTOP-17FPJUS:DESKTOP-17FPJUS\kjl">
+          <Created>2024-06-10T11:46:18.7560565+08:00</Created>
+          <Type>SQL</Type>
+          <Server>DESKTOP-17FPJUS</Server>
+          <UserName />
+          <Authentication>Windows Authentication</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName />
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="databaseEmployee.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>databaseEmployee.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dummyData.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>dummyData.sql</FullPath>
+        </FileNode>
+        <FileNode Name="funcion_email.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>funcion_email.sql</FullPath>
+        </FileNode>
+        <FileNode Name="funcion_gender.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>funcion_gender.sql</FullPath>
+        </FileNode>
+        <FileNode Name="funcion_paswordmatch.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>funcion_paswordmatch.sql</FullPath>
+        </FileNode>
+        <FileNode Name="funcion_paswordPolicy.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>funcion_paswordPolicy.sql</FullPath>
+        </FileNode>
+        <FileNode Name="funcionPhoneNumber.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>funcionPhoneNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="funcionSalary.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>funcionSalary.sql</FullPath>
+        </FileNode>
+        <FileNode Name="spaddAttendance.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>spaddAttendance.sql</FullPath>
+        </FileNode>
+        <FileNode Name="spCountry.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>spCountry.sql</FullPath>
+        </FileNode>
+        <FileNode Name="spDepartmen.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>spDepartmen.sql</FullPath>
+        </FileNode>
+        <FileNode Name="spEmployee.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>spEmployee.sql</FullPath>
+        </FileNode>
+        <FileNode Name="spJob.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>spJob.sql</FullPath>
+        </FileNode>
+        <FileNode Name="spLocation.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>spLocation.sql</FullPath>
+        </FileNode>
+        <FileNode Name="tabelEmployee.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-17FPJUS:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-17FPJUS</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>tabelEmployee.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>
