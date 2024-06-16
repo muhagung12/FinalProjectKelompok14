@@ -1,4 +1,5 @@
 -- Procedures
+
 -- usp_login
 CREATE PROCEDURE usp_login 
 @user VARCHAR(25), 
@@ -17,11 +18,7 @@ END;
 
 EXEC usp_login @user = 'abcde', @password = 'FiN4LpR0jecT-';
 
-
-
-
-
-
+---- sp regist
 CREATE PROCEDURE usp_register 
 @firstname VARCHAR(25), 
 @lastname VARCHAR(25), 

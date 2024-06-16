@@ -14,9 +14,9 @@ CREATE TABLE employees (
   hire_date DATE NOT NULL,
   salary INT,
   manager INT,
-  FOREIGN KEY (manager) REFERENCES employee(id),
   job VARCHAR(10),
   department INT,
+  FOREIGN KEY (manager) REFERENCES employees(id),
   FOREIGN KEY (job) REFERENCES job(name),
   FOREIGN KEY (department) REFERENCES department(id)
 );

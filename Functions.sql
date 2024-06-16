@@ -9,6 +9,7 @@ BEGIN
     END
 END;
 
+---func password
 CREATE FUNCTION func_password_policy (@password VARCHAR(255))
 RETURNS BIT
 AS
@@ -20,6 +21,7 @@ BEGIN
     END
 END;
 
+---- fun gender
 CREATE FUNCTION func_gender (@gender VARCHAR(10))
 RETURNS BIT
 AS
@@ -30,6 +32,8 @@ BEGIN
     END
 END;
 
+
+---func phone
 CREATE FUNCTION func_phone_number (@phone VARCHAR(25))
 RETURNS BIT
 AS
@@ -40,6 +44,7 @@ BEGIN
     END
 END;
 
+---func password match
 CREATE FUNCTION func_password_match (@password VARCHAR(255), @confirmpassword VARCHAR(255))
 RETURNS BIT
 AS
@@ -50,6 +55,8 @@ BEGIN
     END
 END;
 
+
+----func salary
 CREATE FUNCTION func_salary (@jobid VARCHAR(10), @salary INT)
 RETURNS BIT
 AS
