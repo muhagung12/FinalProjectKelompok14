@@ -1,15 +1,15 @@
 
 -- tbl_employees
-INSERT INTO tbl_employees VALUES (1, 'Alif', 'Tanaka', 'Male', 'alifa@metrodata.co', '+656 789 1234', '2023-02-09', 75000, NULL, 'SSR', 2);
-INSERT INTO tbl_employees VALUES (2, 'Beni','Lee','Male','beni@metrodata.co','+852 87651234','2022-06-15',48000,1,'SSR',1);
-INSERT INTO tbl_employees VALUES (3, 'Saka','Wong','Male','saka@metrodata.co','+886 987 65437','2024-02-01',52000,NULL,'ERS',1);
-INSERT INTO tbl_employees VALUES (4, 'Pegi','Kim','Male','pegi@metrodata.co','+82 1111 1233','2022-08-19',60000,3,'FFGT',2);
-INSERT INTO tbl_employees VALUES (5, 'Linda','Garcia','Famale','lindaa@metrodata.co','+63 9087 6543','2022-10-04',45000,1,'HKK',1);
-INSERT INTO tbl_employees VALUES (6, 'Vina','Matsumoto','Female','vinaaaa@metrodata.co','+81 3733 2324','2024-09-13',90000,NULL,'RE',3);
-INSERT INTO tbl_employees VALUES (7, 'Eko','Zhang','Male','ekoo@metrodata.co','+86 6722 1801','2023-09-03',95000,6,'RE',3);
-INSERT INTO tbl_employees VALUES (8, 'Putri','Khan','Famale','putrii@metrodata.co','+91 7684 3212','2024-05-08',72000,NULL,'TE',2);
-INSERT INTO tbl_employees VALUES (9, 'Ismail','Nguyen','Male','ismail@metrodata.co','+84 2460 1035','2024-04-01',90000,8,'ASS',4);
-INSERT INTO tbl_employees VALUES (10, 'Jaja','Malhotra','Male','jajakua@metrodata.co','+92 5534 1118','2023-20-01',52000,2,'SSR',4);
+INSERT INTO tbl_employees VALUES (1, 'Alif', 'Tanaka', 'Male', 'alifa@metrodata.co', '+656 789 1234', '2023-02-09', 75000, NULL, 'SE', 3);
+INSERT INTO tbl_employees VALUES (2, 'Beni','Lee','Male','beni@metrodata.co','+852 87651234','2022-06-15',48000,1,'SMMM',2);
+INSERT INTO tbl_employees VALUES (3, 'Saka','Wong','Male','saka@metrodata.co','+886 987 65437','2024-02-01',52000,NULL,'CSM',1);
+INSERT INTO tbl_employees VALUES (4, 'Pegi','Kim','Male','pegi@metrodata.co','+82 1111 1233','2022-08-19',60000,3,'SE',3);
+INSERT INTO tbl_employees VALUES (5, 'Linda','Garcia','Famale','lindaa@metrodata.co','+63 9087 6543','2022-10-04',45000,1,'FA',4);
+INSERT INTO tbl_employees VALUES (6, 'Vina','Matsumoto','Female','vinaaaa@metrodata.co','+81 3733 2324','2024-09-13',90000,NULL,'SE',3);
+INSERT INTO tbl_employees VALUES (7, 'Eko','Zhang','Male','ekoo@metrodata.co','+86 6722 1801','2023-09-03',95000,6,'CSM',1);
+INSERT INTO tbl_employees VALUES (8, 'Putri','Khan','Famale','putrii@metrodata.co','+91 7684 3212','2024-05-08',72000,NULL,'DMS',2);
+INSERT INTO tbl_employees VALUES (9, 'Ismail','Nguyen','Male','ismail@metrodata.co','+84 2460 1035','2024-04-01',90000,8,'DMS',2);
+INSERT INTO tbl_employees VALUES (10, 'Jaja','Malhotra','Male','jajakua@metrodata.co','+92 5534 1118','2023-20-01',52000,2,'ACC',4);
 
 -- tbl_roles
 INSERT INTO tbl_roles VALUES (1, 'Super Admin');
@@ -121,29 +121,28 @@ INSERT INTO tbl_countries VALUES ('PSE', 'Palestine', 5);
 INSERT INTO tbl_countries VALUES ('QAT', 'Qatar', 5);
 
 -- tbl_locations
-INSERT INTO tbl_locations VALUES (1, '123 Jalan sultan hasanuddin','10011','makassar','sulawesi barat','IDN');
-INSERT INTO tbl_locations VALUES (2, '456 Orchard Road','238888','Singapore City','Singapore','SGP');
-INSERT INTO tbl_locations VALUES (3, '789 Dubar Marg','44618','Kathmadu','Bagmati','NPL');
-INSERT INTO tbl_locations VALUES (4, '1011 Male Boduthakurufaanu Magu','20000','Male','Male Atoll','MDV');
-INSERT INTO tbl_locations VALUES (5, '1213 Shibuya Crossing','150-0002','Tokyo','Tokyo Prefecture','JPN');
-INSERT INTO tbl_locations VALUES (6, '456 Chinggis Khaan Avenue','15160','Ulaanbaatar','Capital','MNG');
-INSERT INTO tbl_locations VALUES (7, '789 Tashkent Metro','100000','Tashkent','Toshkent Region','UZB');
+INSERT INTO tbl_locations VALUES (1, '133 Jalan sultan hasanuddin','10011','makassar','sulawesi barat','IDN');
+INSERT INTO tbl_locations VALUES (2, '477 Orchard Road','238888','Singapore City','Singapore','SGP');
+INSERT INTO tbl_locations VALUES (3, '755 Dubar Marg','44618','Kathmadu','Bagmati','NPL');
+INSERT INTO tbl_locations VALUES (4, '1111 Male Boduthakurufaanu Magu','20000','Male','Male Atoll','MDV');
+INSERT INTO tbl_locations VALUES (5, '1217 Shibuya Crossing','150-0002','Tokyo','Tokyo Prefecture','JPN');
+INSERT INTO tbl_locations VALUES (6, '455 Chinggis Khaan Avenue','15160','Ulaanbaatar','Capital','MNG');
+INSERT INTO tbl_locations VALUES (7, '785 Tashkent Metro','100000','Tashkent','Toshkent Region','UZB');
 INSERT INTO tbl_locations VALUES (8, '1011 Nur-Sultan City Center','010000','Nur-Sultan','Akmola Region','KAZ');
-INSERT INTO tbl_locations VALUES (9, '1213 Rafah Road','','Yerusalem','Jerussalem','PSE');
-INSERT INTO tbl_locations VALUES (10, '456 Al Corniche Street','44160','Doha','Doha Municipality','QAT');
-
+INSERT INTO tbl_locations VALUES (9, '1295VRafah Road','','Yerusalem','Jerussalem','PSE');
+INSERT INTO tbl_locations VALUES (10, '453 Al Corniche Street','44160','Doha','Doha Municipality','QAT');
 
 -- tbl_jobs
-INSERT INTO tbl_jobs VALUES ('CSR','Customer Service Representative', 30000, 60000); --1
+INSERT INTO tbl_jobs VALUES ('CSR','Customer Service Representative', 40000, 70000); --1
 INSERT INTO tbl_jobs VALUES ('TSP','Technical Support Specialist',	60000,	60000); --1
-INSERT INTO tbl_jobs VALUES ('CSM','Customer Success Manager', 70000, 75000); -- 1
-INSERT INTO tbl_jobs VALUES ('DMS','Digital Marketing Specialist', 60000, 60000); -- 2
-INSERT INTO tbl_jobs VALUES ('SMMM','Social Media Marketing Manager', 40000, 75000); -- 2
-INSERT INTO tbl_jobs VALUES ('MRA','Market Research Analyst', 59000, 90000); -- 2
-INSERT INTO tbl_jobs VALUES ('SE','Software Engineer', 80000, 90000); -- 3
-INSERT INTO tbl_jobs VALUES ('DS','Data Scientist', 80000, 100000); -- 3
-INSERT INTO tbl_jobs VALUES ('FA','Financial Analyst', 70000, 70000); -- 4
-INSERT INTO tbl_jobs VALUES ('ACC','Accountant', 85000, 65000); -- 4
+INSERT INTO tbl_jobs VALUES ('CSM','Customer Success Manager', 70000, 80000); -- 1
+INSERT INTO tbl_jobs VALUES ('DMS','Digital Marketing Specialist', 60000, 70000); -- 2
+INSERT INTO tbl_jobs VALUES ('SMMM','Social Media Marketing Manager', 45000, 75000); -- 2
+INSERT INTO tbl_jobs VALUES ('MRA','Market Research Analyst', 56000, 80000); -- 2
+INSERT INTO tbl_jobs VALUES ('SE','Software Engineer', 70000, 95000); -- 3
+INSERT INTO tbl_jobs VALUES ('DS','Data Scientist', 90000, 110000); -- 3
+INSERT INTO tbl_jobs VALUES ('FA','Financial Analyst', 80000, 900000); -- 4
+INSERT INTO tbl_jobs VALUES ('ACC','Accountant', 85000, 99000); -- 4
 
 -- tbl_departments
 INSERT INTO tbl_departments VALUES (1, 'Customer Service', 1);
