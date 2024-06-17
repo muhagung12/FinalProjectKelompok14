@@ -1,5 +1,5 @@
 CREATE FUNCTION 
-func_password_policy (@password varchar(255))
+IsValidPassword (@password varchar(255))
 RETURNS bit AS
 BEGIN DECLARE @isValid bit;
   SET @isValid = 0; 
