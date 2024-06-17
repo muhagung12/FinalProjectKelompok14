@@ -25,3 +25,6 @@ GRANT INSERT, UPDATE ON tbl_roles TO admin;
 -- Permissions for Manager
 GRANT UPDATE, SELECT ON tbl_employees TO manager;
 GRANT UPDATE on tbl_accounts TO manager;
+
+-- Permissions for Employee
+GRANT UPDATE ON tbl_accounts TO employee;
