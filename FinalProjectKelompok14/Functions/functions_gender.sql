@@ -1,4 +1,4 @@
-CREATE FUNCTION func_gender(@gender VARCHAR(10))
+CREATE FUNCTION IsValidGender(@gender VARCHAR(10))
 RETURNS BIT
 AS BEGIN
 	DECLARE @isValid BIT; SET @isValid = 0;
