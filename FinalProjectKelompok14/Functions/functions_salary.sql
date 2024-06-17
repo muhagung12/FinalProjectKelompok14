@@ -1,4 +1,4 @@
-CREATE FUNCTION func_salary (@jobid VARCHAR(10), @salary INT)
+CREATE FUNCTION IsValidSalary (@jobid VARCHAR(10), @salary INT)
 RETURNS BIT
 AS
 BEGIN
