@@ -1,12 +1,12 @@
-CREATE FUNCTION
-func_salary (@salary INT)
+CREATE FUNCTION func_salary (@jobid VARCHAR(10), @salary INT)
 RETURNS BIT
-AS BEGIN
-	DECLARE @isValid BIT;
-	DECLARE @minSalary INT;
-	DECLARE @maxSalary INT;
-	SET @isValid = 0;
-	IF @salary BETWEEN @minSalary AND @maxSalary
-	SET @isValid = 1;
-	RETURN @isValid;
+AS
+BEGIN
+    DECLARE @minsalary INT, @maxsalary INT
+    SELECT @minsalary = min_salary, @maxsalary = max_salary FROM tbl_jobs WHERE id = @jobid
+
+    RETURN CASE 
+        WHEN @salary BETWEEN @minsalary AND @maxsalary THEN 1 
+        ELSE 0 
+    END
 END;
