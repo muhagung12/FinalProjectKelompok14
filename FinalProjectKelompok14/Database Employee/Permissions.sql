@@ -21,3 +21,7 @@ GRANT INSERT, UPDATE, DELETE ON tbl_locations TO admin;
 GRANT INSERT, UPDATE ON tbl_countries TO admin;
 GRANT INSERT, UPDATE ON tbl_regions TO admin;
 GRANT INSERT, UPDATE ON tbl_roles TO admin;
+
+-- Permissions for Manager
+GRANT UPDATE, SELECT ON tbl_employees TO manager;
+GRANT UPDATE on tbl_accounts TO manager;
