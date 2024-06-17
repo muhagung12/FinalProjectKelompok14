@@ -1,5 +1,5 @@
 CREATE FUNCTION 
-func_phone_number (@phoneNumber varchar(20))
+func_phone_number(@phoneNumber varchar(20))
 RETURNS bit AS
 BEGIN DECLARE @isValid bit;
 SET @isValid = 1; 
