@@ -1,5 +1,5 @@
 CREATE FUNCTION
-isValidSalary (@salary INT)
+func_salary (@salary INT)
 RETURNS BIT
 AS BEGIN
 	DECLARE @isValid BIT;
