@@ -1,26 +1,30 @@
-CREATE PROCEDURE generateOtp (@email varchar(25))
-AS BEGIN
-  DECLARE @errorMessage nvarchar(500);
-  DECLARE @userId int;
+CREATE PROCEDURE generateOtp (@userEmail VARCHAR(25))
+AS
+BEGIN
+    DECLARE @userId INT;
+    DECLARE @otp INT;
+    DECLARE @expiryDate DATETIME;
 
-  BEGIN TRY SELECT @userId = id FROM tbl_employees WHERE email = @email;
-  IF @userId IS NOT NULL
-  BEGIN DECLARE @otp int; 
-  SET @otp = FLOOR(1000000 * RAND()) + 1;
+    SELECT @userId = id 
+    FROM tbl_employees 
+    WHERE email = @userEmail;
 
-   
-  UPDATE tbl_accounts
-      SET otp = @otp,
-          is_used = 0,
-          is_expired = DATEADD(minute, 10, (SELECT is_expired FROM tbl_accounts WHERE id= @userId))
-      WHERE id = @userId;
-      PRINT 'Generated OTP: ' + CAST(@otp AS varchar(6));
+    IF @userId IS NOT NULL
+    BEGIN
+        SET @otp = FLOOR(1000000 * RAND()) + 1;
+
+        SET @expiryDate = DATEADD(MINUTE, 10, (SELECT is_expired FROM tbl_accounts WHERE id = @userId));
+
+        UPDATE tbl_accounts
+        SET otp = @otp,
+            is_used = 0,
+            is_expired = @expiryDate
+        WHERE id = @userId;
+
+        PRINT 'Generated OTP: ' + CAST(@otp AS VARCHAR(6));
     END
-    ELSE SET @errorMessage = 'Account Not Registered!';
-    RAISERROR ('Error: %s', 16, 1, @errorMessage);
-    END TRY
-
-    BEGIN CATCH SET @errorMessage = ERROR_MESSAGE();
-    RAISERROR ('Error generating OTP: %s', 16, 1, @errorMessage);
-    END CATCH;
+    ELSE
+    BEGIN
+        PRINT 'Error: Account Not Registered!';
+    END;
 END;

@@ -1,14 +1,13 @@
-CREATE PROCEDURE deleteRole (@id int)
-AS BEGIN
-  DECLARE @errorMessage nvarchar(500);
-  DECLARE @rowsAffected int;
+CREATE PROCEDURE deleteRole (@Id INT)
+AS
+BEGIN
+    DECLARE @rowsAffected INT;
 
-  BEGIN TRY DELETE FROM tbl_roles WHERE id = @id;
-  SET @rowsAffected = @@ROWCOUNT;
-  IF @rowsAffected = 0
-  BEGIN RAISERROR ('Role with ID %d not found.', 10, 1, @id);
-      END;
-  END TRY BEGIN CATCH SET @errorMessage = ERROR_MESSAGE();
-  RAISERROR ('Error deleting role: %s', 16, 1, @errorMessage);
-  END CATCH;
+    DELETE FROM tbl_roles WHERE id = @Id;
+    SET @rowsAffected = @@ROWCOUNT;
+
+    IF @rowsAffected = 0
+    BEGIN
+        PRINT 'Role with the specified ID was not found.';
+    END;
 END;
