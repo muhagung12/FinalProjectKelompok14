@@ -1,36 +1,46 @@
 CREATE PROCEDURE updateLocation (
-  @id INT, @street_address VARCHAR(40) = NULL, @postal_code VARCHAR(12) = NULL,
-  @city VARCHAR(30) = NULL, @state_province VARCHAR(25) = NULL, @country CHAR(3) = NULL
+  @loc_id INT,
+  @loc_street_address VARCHAR(40) = NULL,
+  @loc_postal_code VARCHAR(12) = NULL,
+  @loc_city VARCHAR(30) = NULL,
+  @loc_state_province VARCHAR(25) = NULL,
+  @loc_country CHAR(3) = NULL
 )
-AS BEGIN
+AS
+BEGIN
   DECLARE @rowsAffected INT;
-  DECLARE @errorMessage NVARCHAR(500);
+  DECLARE @errorMsg NVARCHAR(500);
 
-  BEGIN TRY SELECT @rowsAffected = COUNT(*) FROM tbl_locations WHERE id = @id;
+  -- Check if location with given ID exists
+  SELECT @rowsAffected = COUNT(*) FROM tbl_locations WHERE id = @loc_id;
+  IF @rowsAffected = 0
+  BEGIN
+    SET @errorMsg = 'Location with ID ' + CAST(@loc_id AS VARCHAR(10)) + ' does not exist.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
 
+  -- Check if country with given ID exists
+  IF @loc_country IS NOT NULL  
+  BEGIN
+    SELECT @rowsAffected = COUNT(*) FROM tbl_countries WHERE id = @loc_country;
     IF @rowsAffected = 0
-    BEGIN SET @errorMessage = 'Location with ID ' + CAST(@id AS VARCHAR(10)) + ' does not exist.';
-    RAISERROR (@errorMessage, 16, 1); 
+    BEGIN
+      SET @errorMsg = 'Country with ID ' + CAST(@loc_country AS VARCHAR(10)) + ' does not exist.';
+      PRINT @errorMsg;
+      RETURN;
     END;
+  END;
 
-    IF @country IS NOT NULL  
-    BEGIN SELECT @rowsAffected = COUNT(*) FROM tbl_countries WHERE id = @country;
-    IF @rowsAffected = 0
-    BEGIN SET @errorMessage = 'Country with ID ' + CAST(@country AS VARCHAR(10)) + ' does not exist.';
-    RAISERROR (@errorMessage, 16, 1);
-      END;
-    END;
+  -- Update location details
+  UPDATE tbl_locations
+  SET
+    street_address = ISNULL(@loc_street_address, street_address),
+    postal_code = ISNULL(@loc_postal_code, postal_code),
+    city = ISNULL(@loc_city, city),
+    state_province = ISNULL(@loc_state_province, state_province),
+    country = ISNULL(@loc_country, country)
+  WHERE id = @loc_id;
 
-    UPDATE tbl_locations SET 
-      street_address = ISNULL(@street_address, street_address),
-      postal_code = ISNULL(@postal_code, postal_code),
-      city = ISNULL(@city, city),
-      state_province = ISNULL(@state_province, state_province),
-      country = ISNULL(@country, country)
-  WHERE id = @id;
-  END TRY
-  BEGIN CATCH
-    SET @errorMessage = ERROR_MESSAGE();
-    RAISERROR ('Error updating location: %s', 16, 1, @errorMessage);
-  END CATCH;
+  PRINT 'Location details updated successfully';
 END;
