@@ -1,15 +1,14 @@
--- SP ADD DATA PERMISSIONS
-CREATE PROCEDURE AddPermission ( @id int,  @name varchar(100)
+CREATE PROCEDURE AddPermission (
+  @perm_id int,
+  @perm_name varchar(100)
 )
 AS
-BEGIN DECLARE @errorMessage nvarchar(500);
+BEGIN
+  DECLARE @errorMsg nvarchar(500);
 
-    BEGIN TRY INSERT INTO tbl_permissions (id, name) VALUES (@id, @name);
-    END TRY
-    BEGIN CATCH
-    SET @errorMessage = ERROR_MESSAGE();
-    RAISERROR ('Error adding permission: %s', 16, 1, @errorMessage);
-    END CATCH;
+  -- Insert permission
+  INSERT INTO tbl_permissions (id, name)
+  VALUES (@perm_id, @perm_name);
+
+  PRINT 'Permission added successfully';
 END;
-EXEC AddPermission @id = 12, @name = 'Read Access';
-SELECT * FROM tbl_permissions;

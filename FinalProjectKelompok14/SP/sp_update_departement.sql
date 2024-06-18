@@ -1,27 +1,36 @@
-CREATE PROCEDURE 
-updateDepartment ( @id int, @name varchar(30), @location int
+CREATE PROCEDURE updateDepartment (
+  @dept_id int,
+  @dept_name varchar(30),
+  @dept_location int
 )
-AS BEGIN
-  DECLARE @errorMessage nvarchar(500);
-  DECLARE @rowsAffected INT;
+AS
+BEGIN
+  DECLARE @errorMsg nvarchar(500);
+  DECLARE @rowsAffected int;
 
-  BEGIN TRY SELECT @rowsAffected = COUNT(*) FROM tbl_departments WHERE id = @id;
+  -- Check if department with given ID exists
+  SELECT @rowsAffected = COUNT(*) FROM tbl_departments WHERE id = @dept_id;
   IF @rowsAffected = 0
-  BEGIN SET @errorMessage = 'Department with ID ' + CAST(@id AS VARCHAR(10)) + ' does not exist.';
-  RAISERROR (@errorMessage, 16, 1);
-    END;
+  BEGIN
+    SET @errorMsg = 'Department with ID ' + CAST(@dept_id AS VARCHAR(10)) + ' does not exist, please recheck your input.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
 
-  IF @location IS NOT NULL
-  BEGIN SELECT @rowsAffected = COUNT(*) FROM tbl_locations WHERE id = @location;
-  IF @rowsAffected = 0
-  BEGIN SET @errorMessage = 'Location with ID ' + CAST(@location AS VARCHAR(10)) + ' does not exist.';
-  RAISERROR (@errorMessage, 16, 1);
-      END;
+  -- Check if location with given ID exists
+  IF @dept_location IS NOT NULL
+  BEGIN
+    SELECT @rowsAffected = COUNT(*) FROM tbl_locations WHERE id = @dept_location;
+    IF @rowsAffected = 0
+    BEGIN
+      SET @errorMsg = 'Location with ID ' + CAST(@dept_location AS VARCHAR(10)) + ' does not exist, please recheck your input';
+      PRINT @errorMsg;
+      RETURN;
     END;
+  END;
 
-  UPDATE tbl_departments SET name = @name, location = @location WHERE id = @id;
-  END TRY
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE();
-  RAISERROR ('Error updating department: %s', 16, 1, @errorMessage);
-  END CATCH;
+  -- Update department details
+  UPDATE tbl_departments SET name = @dept_name, location = @dept_location WHERE id = @dept_id;
+
+  PRINT 'Department details updated successfully';
 END;

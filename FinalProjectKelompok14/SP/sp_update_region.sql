@@ -1,7 +1,7 @@
-CREATE PROCEDURE updateRegion ( @id INT, @new_name VARCHAR(25)
+CREATE PROCEDURE updateRegion ( @id INT, @regionVARCHAR(25)
 )
 AS BEGIN
   UPDATE tbl_regions
-  SET name = @new_name
+  SET name = @region
   WHERE id = @id;
 END;
