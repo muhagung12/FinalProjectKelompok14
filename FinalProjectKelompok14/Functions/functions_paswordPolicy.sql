@@ -1,43 +1,11 @@
-CREATE FUNCTION 
-IsValidPassword (@password varchar(255))
-RETURNS bit AS
-BEGIN DECLARE @isValid bit;
-  SET @isValid = 0; 
-
-  IF LEN(@password) < 8
-  BEGIN RETURN @isValid; 
-  END;
-
-  DECLARE @hasUppercase bit;
-  SET @hasUppercase = 0; DECLARE @char int = 1; 
-  WHILE @char <= LEN(@password)  
-  BEGIN
-    IF ASCII(SUBSTRING(@password, @char, 1)) >= 65 AND ASCII(SUBSTRING(@password, @char, 1)) <= 90
-    BEGIN SET @hasUppercase = 1; BREAK;
-    END; SET @char = @char + 1; 
-  END;
-IF @hasUppercase = 0
-  BEGIN RETURN @isValid; 
-  END;
-
-  DECLARE @hasLowercase bit;
-  SET @hasLowercase = 0;
-  SET @char = 1; 
-
-  WHILE @char <= LEN(@password)
-  BEGIN
-    IF ASCII(SUBSTRING(@password, @char, 1)) >= 97 AND ASCII(SUBSTRING(@password, @char, 1)) <= 122
-    BEGIN SET @hasLowercase = 1;
-      BREAK;
-    END;
-    SET @char = @char + 1;
-  END;
-
-  IF @hasLowercase = 0
-  BEGIN RETURN @isValid;
-  END;
-
-  SET @isValid = 1;
-  RETURN @isValid;
+---func password
+CREATE FUNCTION func_password_policy(@password VARCHAR(255))
+RETURNS BIT
+AS
+BEGIN
+    -- password minimal 8 karakter dan memuat angka dan memuat huruf kapital
+    RETURN CASE 
+        WHEN @password LIKE '%[A-Za-z]%' AND @password LIKE '%[0-9]%' AND LEN(@password) >= 8 THEN 1
+        ELSE 0
+    END
 END;
-GO
