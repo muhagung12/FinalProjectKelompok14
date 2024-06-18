@@ -1,64 +1,80 @@
 CREATE PROCEDURE addEmployee (
-  @firstName varchar(25),@lastName varchar(25), @gender varchar(10),
-  @email varchar(25), @phone varchar(20), @hireDate date,@salary int, @managerId int,
-  @jobId varchar(10), @departmentId int,@password varchar(50),@confirmPassword varchar(50)
+  @emp_firstName varchar(25),
+  @emp_lastName varchar(25),
+  @emp_gender varchar(10),
+  @emp_email varchar(25),
+  @emp_phone varchar(20),
+  @emp_hireDate date,
+  @emp_salary int,
+  @emp_managerId int,
+  @emp_jobId varchar(10),
+  @emp_departmentId int,
+  @emp_password varchar(50),
+  @emp_confirmPassword varchar(50)
 )
 AS
-BEGIN DECLARE @errorMessage nvarchar(500);
+BEGIN
+  DECLARE @errorMsg nvarchar(500);
+  DECLARE @employeeId int;
 
-  BEGIN TRY
-  IF @password <> @confirmPassword
-    BEGIN SET @errorMessage = 'Passwords do not match.';
-    RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
+  IF dbo.func_match_password(@emp_password, @emp_confirmPassword) = 0
+  BEGIN
+    SET @errorMsg = 'Passwords do not match.';
+    PRINT @errorMsg;
     RETURN;
-    END;
-    IF @gender = '' OR dbo.isValidGender(@gender) = 0
-    BEGIN
-      SET @errorMessage = 'Invalid gender provided.';
-      RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
-      RETURN;
-    END;
+  END;
 
-    IF dbo.isValidEmail(@email) = 0
-    BEGIN
-      SET @errorMessage = 'Invalid email address.';
-      RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
-      RETURN;
-    END;
+  IF dbo.func_gender(@emp_gender) = 0
+  BEGIN
+    SET @errorMsg = 'Invalid gender provided.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
 
-    IF dbo.IsNumericPhoneNumber(@phone) = 0
-    BEGIN
-      SET @errorMessage = 'Invalid phone number format.';
-      RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
-      RETURN;
-    END;
+  IF dbo.func_email_format(@emp_email) = 0
+  BEGIN
+    SET @errorMsg = 'Invalid email address.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
 
-    IF dbo.isValidSalary(@salary) = 0  
-    BEGIN
-      SET @errorMessage = 'Salary is outside the allowed range.';
-      RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
-      RETURN;
-    END;
+  IF dbo.IsNumericPhoneNumber(@emp_phone) = 0
+  BEGIN
+    SET @errorMsg = 'Invalid phone number format.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
 
-    INSERT INTO tbl_employees(
-      first_name, last_name, gender, email, phone,hire_date,salary,manager,job,department
-    )
-    VALUES (@firstName,@lastName, @gender, @email, @phone, @hireDate, @salary, @managerId,@jobId, @departmentId
-    );
+  IF dbo.func_salary(@emp_salary) = 0  
+  BEGIN
+    SET @errorMsg = 'Salary is outside the allowed range.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
 
-    INSERT INTO tbl_accounts (
-      id, username,
-      password
-    )
-    VALUES ( @employeeId, @email, @password
-    );
-    
-    INSERT INTO tbl_account_roles ( account,role )
-    VALUES (@employeeId, 4 );
-  END TRY
+  INSERT INTO tbl_employees (
+    first_name, last_name, gender, email, phone, hire_date, salary, manager, job, department
+  )
+  VALUES (
+    @emp_firstName, @emp_lastName, @emp_gender, @emp_email, @emp_phone, @emp_hireDate, @emp_salary, @emp_managerId, @emp_jobId, @emp_departmentId
+  );
 
-  BEGIN CATCH  SET @errorMessage = ERROR_MESSAGE();
-	RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
-  END CATCH;
 
+  SET @employeeId = SCOPE_IDENTITY();
+
+  INSERT INTO tbl_accounts (
+    id, username, password
+  )
+  VALUES (
+    @employeeId, @emp_email, @emp_password
+  );
+
+  INSERT INTO tbl_account_roles (
+    account, role
+  )
+  VALUES (
+    @employeeId, 4
+  );
+
+  PRINT 'Employee added successfully';
 END;
