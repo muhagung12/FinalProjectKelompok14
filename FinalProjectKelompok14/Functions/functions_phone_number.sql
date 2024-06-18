@@ -1,14 +1,9 @@
-CREATE FUNCTION 
-IsNumericPhoneNumber(@phoneNumber varchar(20))
-RETURNS bit AS
-BEGIN DECLARE @isValid bit;
-SET @isValid = 1; 
-  IF LEN(@phoneNumber) = 0
-  BEGIN SET @isValid = 0; RETURN @isValid;
-  END;
-  IF PATINDEX('%[^0-9]%', @phoneNumber) > 0
-  BEGIN  SET @isValid = 0; 
-  END;
-  RETURN @isValid;
+CREATE FUNCTION IsNumericPhoneNumber (@phone VARCHAR(25))
+RETURNS BIT
+AS
+BEGIN
+    RETURN CASE 
+        WHEN @phone LIKE '[0-9]%' AND LEN(@phone) >= 10 THEN 1
+        ELSE 0
+    END
 END;
-GO

@@ -1,4 +1,4 @@
-CREATE FUNCTION isValidEmail(@email varchar(255))
+CREATE FUNCTION IsValidEmail (@email varchar(50))
 RETURNS bit AS
 BEGIN DECLARE @isValid bit;
   SET @isValid = 0; --
