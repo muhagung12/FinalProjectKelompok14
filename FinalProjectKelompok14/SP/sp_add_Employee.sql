@@ -53,7 +53,7 @@ BEGIN
   END;
 
   INSERT INTO tbl_employees (
-    first_name, last_name, gender, email, phone, hire_date, salary, manager, job, department
+    firstname, lastname, gender, email, phone, hire_date, salary, manager, job, department
   )
   VALUES (
     @emp_firstName, @emp_lastName, @emp_gender, @emp_email, @emp_phone, @emp_hireDate, @emp_salary, @emp_managerId, @emp_jobId, @emp_departmentId
