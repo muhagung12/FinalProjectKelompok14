@@ -1,17 +1,25 @@
-CREATE PROCEDURE 
-updateRole ( @id int,  @name varchar(50)
+CREATE PROCEDURE updateRole (
+  @role_id int,
+  @new_name varchar(50)
 )
-AS BEGIN
-  DECLARE @errorMessage nvarchar(500);
+AS
+BEGIN
   DECLARE @rowsAffected int;
+  DECLARE @errorMsg nvarchar(500);
 
-  BEGIN TRY UPDATE tbl_roles SET name = @name WHERE id = @id;
+  -- Update role name
+  UPDATE tbl_roles SET name = @new_name WHERE id = @role_id;
+
+  -- Get the number of rows affected by the update
   SET @rowsAffected = @@ROWCOUNT;
+
+  -- Check if the role with given ID exists
   IF @rowsAffected = 0
-  BEGIN RAISERROR ('Role with ID %d not found.', 10, 1, @id);
-      END;
-  END TRY
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE();
-  RAISERROR ('Error updating role: %s', 16, 1, @errorMessage);
-  END CATCH;
+  BEGIN
+    SET @errorMsg = 'Role with ID ' + CAST(@role_id AS VARCHAR(10)) + ' not found.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
+
+  PRINT 'Role details updated successfully';
 END;
