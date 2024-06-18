@@ -1,14 +1,13 @@
-CREATE PROCEDURE 
-addRole (@name varchar(50)
+CREATE PROCEDURE addRole (
+  @role_name varchar(50)
 )
 AS
-BEGIN DECLARE @errorMessage nvarchar(500);
-    BEGIN TRY
-    INSERT INTO tbl_roles (name)
-    VALUES (@name);
-    END TRY
-    BEGIN CATCH
-    SET @errorMessage = ERROR_MESSAGE();
-    RAISERROR ('Error adding role: %s', 16, 1, @errorMessage);
-    END CATCH;
+BEGIN
+  DECLARE @errorMsg nvarchar(500);
+
+  -- Insert role
+  INSERT INTO tbl_roles (name)
+  VALUES (@role_name);
+
+  PRINT 'Role added successfully';
 END;
