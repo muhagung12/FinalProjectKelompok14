@@ -1,14 +1,24 @@
-CREATE PROCEDURE deleteEmployee (@id int)
-AS BEGIN
-  DECLARE @errorMessage nvarchar(500);
+CREATE PROCEDURE deleteEmployee (
+  @emp_id int
+)
+AS
+BEGIN
   DECLARE @rowsAffected int;
+  DECLARE @errorMsg nvarchar(500);
 
-  BEGIN TRY DELETE FROM tbl_employees WHERE id = @id;
+  -- Delete employee
+  DELETE FROM tbl_employees WHERE id = @emp_id;
+
+  -- Get the number of rows affected by the delete operation
   SET @rowsAffected = @@ROWCOUNT;
+
+  -- Check if an employee with the given ID was deleted
   IF @rowsAffected = 0
-  BEGIN RAISERROR ('Employee with ID %d not found.', 10, 1, @id);
-      END;
-  END TRY
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE(); RAISERROR ('Error deleting employee: %s', 16, 1, @errorMessage);
-  END CATCH;
+  BEGIN
+    SET @errorMsg = 'Employee with ID ' + CAST(@emp_id AS VARCHAR(10)) + ' not found.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
+
+  PRINT 'Employee deleted successfully';
 END;

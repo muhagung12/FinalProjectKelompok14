@@ -1,17 +1,24 @@
-CREATE PROCEDURE deleteLocation ( @id INT)
+CREATE PROCEDURE deleteLocation (
+  @loc_id INT
+)
 AS
 BEGIN
   DECLARE @rowsAffected INT;
-  DECLARE @errorMessage NVARCHAR(500);
+  DECLARE @errorMsg NVARCHAR(500);
 
-  BEGIN TRY SELECT @rowsAffected = COUNT(*) FROM tbl_locations WHERE id = @id;
+  -- Check if the location with the given ID exists
+  SELECT @rowsAffected = COUNT(*) FROM tbl_locations WHERE id = @loc_id;
+
+  -- If the location does not exist, print an error message
   IF @rowsAffected = 0
-  BEGIN SET @errorMessage = 'Location with ID ' + CAST(@id AS VARCHAR(10)) + ' does not exist.';
-  RAISERROR (@errorMessage, 16, 1);  
-    END;
-  DELETE FROM tbl_locations WHERE id = @id;
-  END TRY
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE();
-  RAISERROR ('Error deleting location: %s', 16, 1, @errorMessage);
-  END CATCH;
+  BEGIN
+    SET @errorMsg = 'Location with ID ' + CAST(@loc_id AS VARCHAR(10)) + ' does not exist.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
+
+  -- Delete the location
+  DELETE FROM tbl_locations WHERE id = @loc_id;
+
+  PRINT 'Location deleted successfully';
 END;

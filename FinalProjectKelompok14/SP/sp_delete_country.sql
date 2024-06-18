@@ -1,18 +1,24 @@
-CREATE PROCEDURE deleteCountry (@id CHAR(3)
+CREATE PROCEDURE deleteCountry (
+  @country_id CHAR(3)
 )
 AS
 BEGIN
   DECLARE @rowsAffected INT;
-  DECLARE @errorMessage NVARCHAR(500);
-  BEGIN TRY SELECT @rowsAffected = COUNT(*) FROM tbl_countries WHERE id = @id;
-    IF @rowsAffected = 0
-    BEGIN SET @errorMessage = 'Country with ID ' + CAST(@id AS VARCHAR(10)) + ' does not exist.';
-      RAISERROR (@errorMessage, 16, 1);
-    END;
-    DELETE FROM tbl_countries
-    WHERE id = @id;
-  END TRY
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE();
-  RAISERROR ('Error deleting country: %s', 16, 1, @errorMessage);
-  END CATCH;
+  DECLARE @errorMsg NVARCHAR(500);
+
+  -- Check if the country with the given ID exists
+  SELECT @rowsAffected = COUNT(*) FROM tbl_countries WHERE id = @country_id;
+
+  -- If the country does not exist, print an error message
+  IF @rowsAffected = 0
+  BEGIN
+    SET @errorMsg = 'Country with ID ' + @country_id + ' does not exist.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
+
+  -- Delete the country
+  DELETE FROM tbl_countries WHERE id = @country_id;
+
+  PRINT 'Country deleted successfully';
 END;

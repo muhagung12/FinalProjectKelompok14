@@ -1,14 +1,22 @@
-CREATE PROCEDURE deletePermission (@Id int)
+CREATE PROCEDURE deletePermission (
+  @permission_id INT
+)
 AS
 BEGIN
-    DECLARE @rowsAffected int;
+  DECLARE @rowsAffected INT;
+  DECLARE @errorMsg NVARCHAR(500);
 
-    DELETE FROM tbl_permissions WHERE id = @Id;
-    SET @rowsAffected = @@ROWCOUNT;
+  -- Attempt to delete the permission
+  DELETE FROM tbl_permissions WHERE id = @permission_id;
+  SET @rowsAffected = @@ROWCOUNT;
 
-    IF @rowsAffected = 0
-    BEGIN
-        PRINT 'Role with the specified ID was not found.';
-    END;
+  -- If no rows were affected, the permission was not found
+  IF @rowsAffected = 0
+  BEGIN
+    SET @errorMsg = 'Permission with ID ' + CAST(@permission_id AS VARCHAR(10)) + ' not found.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
+
+  PRINT 'Permission deleted successfully';
 END;
-
