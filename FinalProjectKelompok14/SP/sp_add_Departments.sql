@@ -1,11 +1,14 @@
-CREATE PROCEDURE 
-AddDepartment (@name varchar(30), @location int)
+CREATE PROCEDURE AddDepartment (
+  @dept_name varchar(30),
+  @dept_location int
+)
 AS
-BEGIN DECLARE @errorMessage nvarchar(500);
-  BEGIN TRY
-    INSERT INTO tbl_departments (name, location)
-    VALUES (@name, @location);
-  END TRY
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE(); RAISERROR ('Error adding department: %s', 16, 1, @errorMessage);
-  END CATCH;
+BEGIN
+  DECLARE @errorMsg nvarchar(500);
+
+  -- Insert into the departments table
+  INSERT INTO tbl_departments (name, location)
+  VALUES (@dept_name, @dept_location);
+
+  PRINT 'Department added successfully';
 END;
