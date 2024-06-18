@@ -1,7 +1,9 @@
-CREATE FUNCTION IsValidGender (@gender VARCHAR(10))
+CREATE FUNCTION func_gender (@gender VARCHAR(10))
 RETURNS BIT
-AS BEGIN
-	DECLARE @isValid BIT; SET @isValid = 0;
-    IF @gender IN ('Male', 'Female') SET @isValid = 1;
-RETURN @isValid;
+AS
+BEGIN
+    RETURN CASE 
+        WHEN @gender IN ('Male', 'Female') THEN 1 
+        ELSE 0 
+    END
 END;
