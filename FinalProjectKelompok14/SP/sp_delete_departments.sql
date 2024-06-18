@@ -1,14 +1,24 @@
-CREATE PROCEDURE deleteDepartment (@id int)
-AS BEGIN
-  DECLARE @errorMessage nvarchar(500);
+CREATE PROCEDURE deleteDepartment (
+  @dept_id int
+)
+AS
+BEGIN
   DECLARE @rowsAffected int;
+  DECLARE @errorMsg nvarchar(500);
 
-  BEGIN TRY DELETE FROM tbl_departments WHERE id = @id;
+  -- Delete department
+  DELETE FROM tbl_departments WHERE id = @dept_id;
+
+  -- Get the number of rows affected by the delete operation
   SET @rowsAffected = @@ROWCOUNT;
+
+  -- Check if a department with the given ID was deleted
   IF @rowsAffected = 0
-  BEGIN RAISERROR ('Department with ID %d not found.', 10, 1, @id);
-    END;
-  END TRY
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE(); RAISERROR ('Error deleting department: %s', 16, 1, @errorMessage);
-  END CATCH;
+  BEGIN
+    SET @errorMsg = 'Department with ID ' + CAST(@dept_id AS VARCHAR(10)) + ' not found.';
+    PRINT @errorMsg;
+    RETURN;
+  END;
+
+  PRINT 'Department deleted successfully';
 END;
