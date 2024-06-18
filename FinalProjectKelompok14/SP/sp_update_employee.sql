@@ -1,42 +1,65 @@
 CREATE PROCEDURE updateEmployee (
-	@id int, @firstName varchar(25), @lastName varchar(25), @gender varchar(10),
-	@email varchar(25), @phone varchar(20), @hireDate date, @salary int,
-	@managerId int, @jobId varchar(10),  @departmentId int
+  @emp_id int,
+  @emp_firstName varchar(25),
+  @emp_lastName varchar(25),
+  @emp_gender varchar(10),
+  @emp_email varchar(25),
+  @emp_phone varchar(20),
+  @emp_hireDate date,
+  @emp_salary int,
+  @emp_managerId int,
+  @emp_jobId varchar(10),
+  @emp_departmentId int
 )
 AS
-BEGIN DECLARE @errorMessage nvarchar(500);
-BEGIN TRY IF @gender = '' OR dbo.isValidGender(@gender) = 0
-    BEGIN SET @errorMessage = 'Invalid gender provided.';
-    RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
+BEGIN
+  DECLARE @errorMsg nvarchar(500);
+
+  -- Validate gender
+  IF dbo.func_gender(@emp_gender) = 0
+  BEGIN
+    SET @errorMsg = 'Invalid gender.';
+    PRINT @errorMsg;
     RETURN;
-    END;
+  END;
 
-    IF dbo.isValidEmail(@email) = 0
-    BEGIN SET @errorMessage = 'Invalid email address.';
-    RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
+  -- Validate email
+  IF dbo.func_email_format(@emp_email) = 0
+  BEGIN
+    SET @errorMsg = 'Invalid email address.';
+    PRINT @errorMsg;
     RETURN;
-    END;
+  END;
 
-    IF dbo.isNumericPhoneNumber(@phone) = 0
-    BEGIN SET @errorMessage = 'Invalid phone number format.';
-    RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
+  -- Validate phone number format
+  IF dbo.func_phone_number(@emp_phone) = 0
+  BEGIN
+    SET @errorMsg = 'Invalid phone number format.';
+    PRINT @errorMsg;
     RETURN;
-    END;
+  END;
 
-    IF dbo.isValidSalary(@jobId, @salary) = 0
-    BEGIN SET @errorMessage = 'Salary is outside the allowed range.';
-    RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
+  -- Validate salary
+  IF dbo.func_salary(@emp_jobId, @emp_salary) = 0
+  BEGIN
+    SET @errorMsg = 'Salary is not permitted, please check the salary bound.';
+    PRINT @errorMsg;
     RETURN;
-    END;
+  END;
 
-    UPDATE tbl_employee SET first_name = @firstName,
-		last_name = @lastName, gender = @gender,
-		email = @email,phone = @phone, hire_date = @hireDate,
-		salary = @salary, manager = @managerId, job = @jobId, department = @departmentId
-    WHERE id = @id;
-    END TRY
+  -- Update employee details
+  UPDATE tbl_employee
+  SET first_name = @emp_firstName,
+      last_name = @emp_lastName,
+      gender = @emp_gender,
+      email = @emp_email,
+      phone = @emp_phone,
+      hire_date = @emp_hireDate,
+      salary = @emp_salary,
+      manager = @emp_managerId,
+      job = @emp_jobId,
+      department = @emp_departmentId
+  WHERE id = @emp_id;
 
-  BEGIN CATCH SET @errorMessage = ERROR_MESSAGE();
-  RAISERROR ('Error adding employee: %s', 16, 1, @errorMessage);
-  END CATCH;
+  PRINT 'Employee details updated successfully';
 END;
