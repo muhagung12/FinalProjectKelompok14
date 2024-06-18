@@ -1,4 +1,4 @@
-CREATE FUNCTION IsNumericPhoneNumber (@phone VARCHAR(25))
+CREATE FUNCTION func_phone_number (@phone VARCHAR(25))
 RETURNS BIT
 AS
 BEGIN

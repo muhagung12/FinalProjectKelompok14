@@ -1,23 +1,15 @@
-CREATE PROCEDURE login (@username VARCHAR(25), @password VARCHAR(255))
-AS
-BEGIN
-    DECLARE @employeeEmail VARCHAR(25);
-    DECLARE @accountUsername VARCHAR(25);
+CREATE PROCEDURE login (@user_email varchar(25), @user_password varchar(255))
+AS BEGIN 
+  DECLARE @errorMsg nvarchar(500);
 
-    SELECT @employeeEmail = email 
-    FROM tbl_employees 
-    WHERE email = @username;
+  IF @user_email = (SELECT email FROM tbl_employees WHERE email = @user_email)
+     AND @user_email = (SELECT username FROM tbl_accounts WHERE username = @user_email)
+  BEGIN
+    PRINT 'Login Success!';
+  END
+  ELSE 
+  BEGIN
+    PRINT 'Account Not Registered!';
+  END
 
-    SELECT @accountUsername = username 
-    FROM tbl_accounts 
-    WHERE username = @username;
-
-    IF @username = @employeeEmail AND @username = @accountUsername
-    BEGIN
-        PRINT 'Login Success!';
-    END
-    ELSE
-    BEGIN
-        PRINT 'Account Not Registered!';
-    END;
 END;
