@@ -1,7 +1,9 @@
-CREATE FUNCTION IsPasswordMatch (@password VARCHAR(255), @newPassword VARCHAR(255))
+CREATE FUNCTION func_match_password (@password VARCHAR(255), @confirmpassword VARCHAR(255))
 RETURNS BIT
-AS BEGIN DECLARE @isValid BIT; SET @isValid = 0;
-	IF (@password = @newPassword)
-	SET @isValid = 1;
-	RETURN @isValid;
+AS
+BEGIN
+    RETURN CASE 
+        WHEN @password = @confirmpassword THEN 1 
+        ELSE 0 
+    END
 END;
