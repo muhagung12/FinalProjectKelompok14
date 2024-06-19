@@ -1,48 +1,45 @@
-CREATE PROCEDURE editPassword (
-  @email varchar(25), @password varchar, @newPassword varchar(255), @confirmPassword varchar(255)
+CREATE PROCEDURE updatePassword (
+  @userEmail VARCHAR(25), 
+  @password VARCHAR(255), 
+  @newPassword VARCHAR(255), 
+  @confirmPassword VARCHAR(255)
 )
-AS BEGIN
-  DECLARE @errorMessage nvarchar(500);
-  DECLARE @userId int;
+AS
+BEGIN
+  DECLARE @errorMsg NVARCHAR(500);
+  DECLARE @userId INT;
 
-  BEGIN TRY SELECT @userId = id FROM tbl_accounts WHERE username = @email;
+  -- Retrieve the user ID based on the provided email
+  SELECT @userId = id FROM tbl_accounts WHERE username = @userEmail;
+
+  -- Check if the user ID is found
   IF @userId IS NULL
-    BEGIN SET @errorMessage = 'Username not found';
-    RAISERROR ('Error: %s', 16, 1, @errorMessage);
+  BEGIN 
+    PRINT 'Username not found';
+    RETURN;
+  END
+  ELSE
+  BEGIN
+    DECLARE @isValidPassword BIT;
+      
+    -- Validate the new password
+    IF dbo.func_policy_password(@newPassword) = 0
+    BEGIN 
+      PRINT 'Invalid new password requirements, please recheck';
+      RETURN;
+    END
+    ELSE IF dbo.func_policy_match(@newPassword, @confirmPassword) = 0
+    BEGIN 
+      PRINT 'New password and confirm password do not match';
+      RETURN;
     END
     ELSE
     BEGIN
-
-    DECLARE @isValidPassword bit;
-    SET @isValidPassword = dbo.isValidPassword(@newPassword);
-    IF @isValidPassword = 0
-    BEGIN SET @errorMessage = 'Invalid new password requirements';
-    RAISERROR ('Error: %s', 16, 1, @errorMessage);
-      END
-      ELSE IF @newPassword <> @confirmPassword
-      
-	BEGIN SET @errorMessage = 'New password and confirm password do not match';
-    RAISERROR ('Error: %s', 16, 1, @errorMessage);
-      END
-      ELSE
-      BEGIN
-        UPDATE tbl_accounts
-        SET password = @newPassword
-        WHERE id = @userId;
-      END
+      -- Update the password
+      UPDATE tbl_accounts
+      SET password = @newPassword
+      WHERE id = @userId;
+      PRINT 'Password updated successfully';
     END
-  END TRY
-
-  BEGIN CATCH
-    SET @errorMessage = ERROR_MESSAGE();
-    RAISERROR ('Error resetting password: %s', 16, 1, @errorMessage);
-  END CATCH;
+  END
 END;
-
-EXEC editPassword 
-  @email = 'a@metrodata.co',
-  @password =  'Csr_1234',
-  @newPassword = 'cSR_1234',
-  @confirmPassword = 'cSR_1234'
-
-  select * from tbl_accounts
