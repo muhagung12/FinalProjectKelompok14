@@ -8,28 +8,28 @@ BEGIN
   DECLARE @errorMessage nvarchar(500);
 
   -- Validate gender
-  IF dbo.func_gender(@gender) = 0
+  IF @gender = '' OR dbo.isValidGender(@gender) = 0
   BEGIN 
     PRINT 'Invalid gender provided.';
     RETURN;
   END;
 
   -- Validate email
-  IF dbo.func_email_format(@email) = 0
+  IF dbo.isValidEmail(@email) = 0
   BEGIN 
     PRINT 'Invalid email address.';
     RETURN;
   END;
 
   -- Validate phone number
-  IF dbo.func_phone_number(@phone) = 0
+  IF dbo.isNumericPhoneNumber(@phone) = 0
   BEGIN 
     PRINT 'Invalid phone number format.';
     RETURN;
   END;
 
   -- Validate salary
-  IF dbo.func_salary(@jobId, @salary) = 0 
+  IF dbo.isValidSalary(@jobId, @salary) = 0 
   BEGIN 
     PRINT 'Salary is outside the allowed range.';
     RETURN;
@@ -37,8 +37,8 @@ BEGIN
 
   -- Update employee profile
   UPDATE tbl_employees
-  SET first_name = @firstName,
-      last_name = @lastName,
+  SET firstname = @firstName,
+      lastname = @lastName,
       gender = @gender,
       email = @email,
       phone = @phone,
